@@ -16,6 +16,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import java.util.Random
 
 class servicios : AppCompatActivity() {
@@ -63,6 +67,20 @@ class servicios : AppCompatActivity() {
                 IntentService::class.java
             )
             startService(intent1)
+        }
+
+        findViewById<Button>(R.id.workerbutton).setOnClickListener() {
+            val workManager: WorkManager = WorkManager.getInstance(this)
+            val peticion: WorkRequest = OneTimeWorkRequestBuilder<WorkerMn>().build()
+            val id = peticion.id
+            workManager.getWorkInfoByIdLiveData(id)
+                .observe(this, Observer { info ->
+                    if (info != null && info.state.isFinished) {
+                        val resultado = info.outputData.getString("vuelta")
+                        Log.d("Worker", resultado.toString())
+                    }
+                })
+            workManager.enqueue(peticion)
         }
     }
 }

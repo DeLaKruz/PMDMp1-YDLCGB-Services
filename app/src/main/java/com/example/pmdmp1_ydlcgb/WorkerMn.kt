@@ -1,15 +1,18 @@
 package com.example.pmdmp1_ydlcgb
 
-import android.app.IntentService
-import android.content.Intent
 import android.content.Context
-import androidx.media3.common.util.Log
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 
-class IntentService : IntentService("IntentService") {
-
-    override fun onHandleIntent(intent: Intent?) {
+class WorkerMn  (context: Context, workerParams: WorkerParameters) :
+    Worker(context, workerParams){
+    override fun doWork(): Result {
         calcularPrimos(Int.MAX_VALUE / 400000)
+        val vuelta= workDataOf(Pair("vuelta","otroobjecto"))
+        return Result.success(vuelta)
     }
+
 
     var numerosprimos = ArrayList<Int>()
     private fun calcularPrimos(numeromax: Int): List<Int> {

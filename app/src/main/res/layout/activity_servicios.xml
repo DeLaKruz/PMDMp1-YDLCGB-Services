@@ -37,6 +37,12 @@
             android:text="Intent" />
 
         <Button
+            android:id="@+id/workerbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Worker Manager" />
+
+        <Button
             android:id="@+id/colores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
